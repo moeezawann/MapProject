@@ -80,30 +80,30 @@
             L.geoJSON(geojsonFeatures).addTo(map);
 
 
-            // Show this tp rahul to portray where we wan the data to show
-            L.geoJSON(geojsonFeatures, {
-                onEachFeature: function (feature, layer) {
-                    // Bind popup for click event
-                    layer.bindPopup(feature.properties.HQ_NAME);
+            // // Show this tp rahul to portray where we wan the data to show
+            // L.geoJSON(geojsonFeatures, {
+            //     onEachFeature: function (feature, layer) {
+            //         // Bind popup for click event
+            //         layer.bindPopup(feature.properties.HQ_NAME);
             
-                    // Bind tooltip for hover event
-                    layer.bindTooltip(feature.properties.HQ_NAME, {
-                        permanent: false,             // Tooltip is not always visible
-                        direction: 'top',             // Tooltip appears above the feature
-                        className: 'county-tooltip'   // Custom class for styling
-                    });
+            //         // Bind tooltip for hover event
+            //         layer.bindTooltip(feature.properties.HQ_NAME, {
+            //             permanent: false,             // Tooltip is not always visible
+            //             direction: 'top',             // Tooltip appears above the feature
+            //             className: 'county-tooltip'   // Custom class for styling
+            //         });
             
-                    // Show tooltip on hover
-                    layer.on('mouseover', function () {
-                        this.openTooltip();
-                    });
+            //         // Show tooltip on hover
+            //         layer.on('mouseover', function () {
+            //             this.openTooltip();
+            //         });
             
-                    // Hide tooltip on mouseout
-                    layer.on('mouseout', function () {
-                        this.closeTooltip();
-                    });
-                }
-            }).addTo(map); 
+            //         // Hide tooltip on mouseout
+            //         layer.on('mouseout', function () {
+            //             this.closeTooltip();
+            //         });
+            //     }
+            // }).addTo(map); 
     
 
            // adding the HC-Data to an array that we will use 
@@ -112,40 +112,47 @@
                 const countyData = hcData[i];
                 processedData.push(countyData);
               }
+             // console.log(processedData);
             
+             processedData.forEach(result => {
+
+                L.geoJSON(geojsonFeatures, {
+                    onEachFeature: function (feature,layer){
+                     
             
+                  //  Bind popup for click event
+                   layer.bindPopup(feature.properties.HQ_NAME);
+    
+                   //  Bind tooltip for hover event
+                    layer.bindTooltip(feature.properties.HQ_NAME, {
+                            permanent: false,             // Tooltip is not always visible
+                            direction: 'top',             // Tooltip appears above the feature
+                            className: 'county-tooltip'   // Custom class for styling
+                        });
+                        
+                     if(result.county){
+                        let tooltipContent = `<strong>${result.county}</strong><br>
+                          Population: ${result.population}<br><br>
+                          <strong>Heart Attacks:</strong><br>
+                          Black: ${result.health_data.heart_attacks.black}<br>`;
+                          //console.log(result.county);
+                          console.log(result.health_data.heart_attacks.black);
+                          
+    
+                       layer.bindTooltip(tooltipContent);
+                      } else {
+                            console.log("Names do not match");
+                      }
+                    }
+                  }).addTo(map)
 
-            // adding hovering effect with county names 
-            // L.geoJSON(geojsonFeatures, {
-            //     onEachFeature: function (feature,layer){
-                 
-            //  //  County name from API parsed data "Opensoft data"
-            //       const countyName = features.properties.HQ_NAME;
-            //   //  county name from health care data json
-            //       const hcCounty = processedData.find(data => data.county === countyName)
 
-            //   //  Bind popup for click event
-            //    layer.bindPopup(feature.properties.HQ_NAME);
+             })
 
-            //    //  Bind tooltip for hover event
-            //     layer.bindTooltip(feature.properties.HQ_NAME, {
-            //             permanent: false,             // Tooltip is not always visible
-            //             direction: 'top',             // Tooltip appears above the feature
-            //             className: 'county-tooltip'   // Custom class for styling
-            //         });
-                    
-            //      if(hcCounty){
-            //         let tooltipContent = `<strong>${healthcareData.county}</strong><br>
-            //           Population: ${hcCounty.population}<br><br>
-            //           <strong>Heart Attacks:</strong><br>
-            //           Black: ${hcCounty.health_data.heart_attacks.black}<br>`;
 
-            //        layer.bindTooltip(tooltipContent);
-            //       } else {
-            //             console.log("Names do not match");
-            //       }
-            //     }
-            //   }).addTo(map)
+
+         //  adding hovering effect with county names 
+           
 
                     
         
