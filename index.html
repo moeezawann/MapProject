@@ -1,43 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> GeoJSON LineString Example</title>
+    <title> Health Care Map Project</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="style.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     
-    <style>
-        #map {
-            height: 600px;
-            width: 70%;
-            float: left;
-        }
-        #iframe-container {
-            height: 600px;
-            width: 30%;
-            float: left;
-        }
-    </style>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- <script src = "NCgeojson.js"></script> -->
+    <script src = "script.js" type = "module"></script>
+    <!-- <script src = "HC-data.js"> </script> -->
+    
+   
 </head>
 <body>
     <div id="map" style="height: 600px;"></div>
     <div id="iframe-container">
-     <!-- placing buttons here -->
-     <!-- <button type= "button1"> Heart Attacks</button>
-     <button type= "button2"> Strokes</button>
-     <button type= "button3"> Cancer</button>
-     <button type= "button4"> STI/STD</button>
-     <button type= "button5"> Diabetes</button>
-     <button type= "button6"> Arthritis</button> -->
-     
-     
+     <!-- placing drop down list buttons here -->
 
+     <!-- This list is for medical conditions  -->
+     <!-- <input type="button" id = "fetchDataButton" value="Fetch data" onclick="fetchData()"/>
+     <button class="list" id="ddlMedCondtion" onchange="medCondtionChange()">
+        <option value="heart_attacks">Heart Attack</option>
+        <option value="strokes">Strokes</option>
+        <option value="cancer">Cancer</option>
+        <option value="stis_and_stds">STI/STD</option>
+        <option value="diabetes">Diabetes</option>
+        <option value="arthrits">Arthritis</option> 
+
+     </button> -->
+
+     <nav class="dropDownMenu">  
+     <ul> 
+        <li><a href="#" id="heart_attacks">Heart Attack</a></li>
+        <li><a href="#" id="cancer">Cancer</a>
+            <ul id="cancerSubMenu">
+                <li><a href="#" id="colon" onclick="addMedConditionToMap('colon','Colon Cancer')">Colon Cancer</a></li>
+                <li><a href="#" id="breast">Breast Cancer</a></li>
+                <li><a href="#" id="skin">Skin Cancer</a></li>
+            </ul>
+        </li>
+        <li><a href="#" id="strokes">Strokes</a></li>
+        <li><a href="#" id="stiSTD">STI/STD</a>
+            <ul id="stiStdSubMenu">
+                <li><a href="#" id="HIV">HIV</a></li>
+                <li><a href="#" id="Herpes">Herpes</a></li>
+                <li><a href="#" id="Gonorrhea">Gonorrhea</a></li>
+                <li><a href="#" id="Syphilis">Syphilis</a></li>
+                <li><a href="#" id="AIDS">AIDS</a></li>
+                <li><a href="#" id="Chlamydia">Chlamydia</a></li>
+            </ul>
+        </li>
+        <li><a href="#" id="diabetes">Diabetes</a></li>
+        <li><a href="#" id="arthritis">Arthritis</a></li>
+     </ul>
+
+        
     
-   
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src = "NCgeojson.js"></script>
-    <script src = "script.js"></script>
-    <script src = "HC-data.js"> </script>
+    </nav>
+
+     <br>
+     <label for="ddlCancerType" id="cancerTypeLabel" style="display:none;">Cancer Type:</label>
+     <select id="ddlCancerType" class="list" style="display:none;">
+         <option value="colon">Colon Cancer</option>
+         <option value="breast">Breast Cancer</option>
+         <option value="skin">Skin Cancer</option>
+         <!-- Add other cancer types here -->
+     </select>
+    
+    
+    </br>
+
+     <!-- This list is for the races of people  -->
+     <!-- <select id="ddlRace" class="list" onchange="raceChange()" disabled="false">Race
+
+        <option value="black">Black</option>
+        <option value="white">Caucasian</option>
+        <option value="latino">Latino</option>
+        <option value="asian">Asian</option>
+
+     </select> -->
+     
 
        
 </body>

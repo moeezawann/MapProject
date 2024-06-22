@@ -1,0 +1,106 @@
+
+.dropDownMenu{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+}
+ body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    padding-top: 60px;
+    background: #333;
+
+}
+.dropDownMenu ul, .dropDownMenu li{
+    margin: 0%;
+    padding: 0;
+}
+.dropDownMenu ul{
+    background: gray;
+    list-style: none;
+    width: 100%;
+}
+.dropDownMenu li{
+    float: left;
+    position: relative;
+    width: auto;
+}
+.dropDownMenu a{
+    background: #30a6e6;
+    color: white;
+    display: block;
+    font-weight: 400;
+    font-size: 13px;
+    font-family: 'Popppins', sans-serif;
+    padding:15px 55px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.25 ease;
+}
+.dropDownMenu li:hover > a{
+    background: #34495e;
+}
+#cancerSubMenu{
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 35px;
+    visibility: hidden;
+    z-index: 1000;
+}
+li:hover ul#cancerSubMenu,
+li:hover ul#cancerSubMenu:hover {
+    opacity: 1;
+    top: 40px;
+    visibility: visible;
+}
+#cancerSubMenu li{
+    float: none;
+    width: 100%;
+
+}
+#cancerSubMenu a:hover{
+    background: #0584df;
+
+}
+#cancerSubMenu a{
+    background-color:#34495e ;
+}
+#stiStdSubMenu{
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 35px;
+    visibility: hidden;
+    z-index: 1000;
+}
+li:hover ul#stiStdSubMenu,
+li:hover ul#stiStdSubMenu:hover{
+    opacity: 1;
+    top: 40px;
+    visibility: visible;
+}
+#stiStdSubMenu li{
+    float: none;
+    width: 100;
+
+}
+#stiStdSubMenu a:hover{
+    background: #0584df;
+
+}
+#stiStdSubMenu a{
+    background-color:#34495e ;
+}
+#map, #iframe-container {
+height: 600px;
+width: 70%;
+float: left;
+margin-top: 50px; /* Adjust this value to move the map and iframe down */
+z-index: 1;
+
+}
+
