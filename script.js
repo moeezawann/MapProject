@@ -176,66 +176,6 @@
 
   }).catch(error => console.error('Error fetching data:', error));
 
-  
-  
-//function addMedConditionToMap(medCond, medCondName){
-   
-    // fetch('HealthData.json')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             data.forEach(healthData => processedData.push(healthData));
-
-    //             //   processedData.forEach(result => {
-
-    //         L.geoJSON(geojsonFeatures, {
-    //             onEachFeature: function (feature,layer){
-                    
-    //             const matchingCountyData = processedData.find(data => data.county === feature.properties.HQ_NAME);
-    //             const filteredData = processedData.filter(item => item.health_data[medCond] === item.properties.HQ_NAME);
-
-
-    //                 //console.log(filteredData);
-    //             //  Bind popup for click event
-    //             layer.bindPopup(feature.properties.HQ_NAME);
-
-    //             //  Bind tooltip for hover event
-    //             layer.bindTooltip(feature.properties.HQ_NAME, {
-    //                     permanent: false,             // Tooltip is not always visible
-    //                     direction: 'top',             // Tooltip appears above the feature
-    //                     className: 'county-tooltip'   // Custom class for styling
-    //                 });
-                    
-    //                 if(matchingCountyData && processedData.health_data[medCond]){
-    //                 let tooltipContent = `<strong>${matchingCountyData.county}</strong><br>
-    //                     Population: ${matchingCountyData.population}<br><br>
-    //                     <strong>${medCondName}</strong>
-    //                     <br>Black: ${matchingCountyData.health_data.heart_attacks.black}<br>`;
-    //                     // console.log(matchingCountyData.county);
-    //                     // console.log(matchingCountyData.health_data.heart_attacks.total);
-
-    //                 layer.bindPopup(tooltipContent);
-    //                 } else {
-    //                     console.log("Names do not match");
-    //                 }
-    //             }
-    //             }).addTo(map)
-
-
-    //                 //  }) 
-        
-    //         })
-    //         .catch(error => {
-    //             console.error('Error fetching or processing data:', error);
-    //         });
-//     console.log("here");
-//     var ddlRace = document.getElementById("ddlRace");
-//     ddlRace.removeAttribute("disabled");
-//  console.log(document.getElementById("ddlMedCondtion").value);
-//    // $(".ddlRace").setAttribute();
-
-//     document.getElementsByClassName("list");
-    
-//}
 
 
 function addMedConditionToMap(conditionId, conditionName) {
