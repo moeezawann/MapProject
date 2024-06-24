@@ -10,7 +10,7 @@
     
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <!-- <script src = "NCgeojson.js"></script> -->
-    <script src = "script.js" type = "module"></script>
+    <script src = "script.js" defer></script>
     <!-- <script src = "HC-data.js"> </script> -->
     
    
@@ -37,8 +37,8 @@
         <li><a href="#" id="heart_attacks">Heart Attack</a></li>
         <li><a href="#" id="cancer">Cancer</a>
             <ul id="cancerSubMenu">
-                <li><a href="#" id="colon" onclick="addMedConditionToMap('colon','Colon Cancer')">Colon Cancer</a></li>
-                <li><a href="#" id="breast">Breast Cancer</a></li>
+                <li><a href="#" id="colon" onclick="addMedConditionToMap('colon', 'Colon Cancer')">Colon Cancer</a></li>
+                <li><a href="#" id="breast" onclick="addMedConditionToMap('breast', 'Breast Cancer')">Breast Cancer</a></li>
                 <li><a href="#" id="skin">Skin Cancer</a></li>
             </ul>
         </li>
