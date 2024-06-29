@@ -5,10 +5,13 @@
     // global array adding the HealthData to an array that we will use 
         let processedData = [];
 
+    // assigning out coordinates for county shape mapping 
+        let countyCoordinates = [];
+
     //  global variables for index.html li health condition options
 
     // let heart_attacks = document.getElementById("heart_attacks");
-    // let colonCancer =  document.getElementById("colon");
+     //let colonCancer =  document.getElementById("colon");
     // let breastCancer = document.getElementById("breast");
     // let skinCancer = document.getElementById("skin");
     // let strokes = document.getElementById("strokes");
@@ -63,7 +66,8 @@
                     const geojsonFeature = {
                         "type": "Feature",
                         "properties": {
-                            "HQ_NAME": record.name + ' County'
+                            "HQ_NAME": record.name + ' County',
+                            //"total": null // added this section for total 6/26/24 as it could be needed for the chorpleth section
                         },
                         "geometry": {
                             "type": "Point",
@@ -71,8 +75,8 @@
                         }
                     };
 
-                     // assigning out coordinates for shape mapping 
-                    const countyCoordinates = record.geo_shape.geometry.coordinates;
+                     // assigning out coordinates for county shape mapping 
+                         countyCoordinates = record.geo_shape.geometry.coordinates;
                     //  Assuming `countCoordinates` is defined as an array of coordinates and `record.name` is available as a variable
                       L.geoJSON({
                         "type": "FeatureCollection",
@@ -113,61 +117,32 @@
 
             //adding the features to the map
             L.geoJSON(geojsonFeatures).addTo(map);
-    
+
+
+           
            // adding the HC-Data to an array that we will use 
             // const processedData = [];
-             
 
-           // parisng through the health data JSON I made via fetch call
-        //    fetch('HealthData.json')
-        //             .then(response => response.json())
-        //             .then(data => {
-        //                 data.forEach(healthData => processedData.push(healthData));
-    
-        //             //   processedData.forEach(result => {
-    
-        //             L.geoJSON(geojsonFeatures, {
-        //                 onEachFeature: function (feature,layer){
-                            
-        //                 const matchingCountyData = processedData.find(data => data.county === feature.properties.HQ_NAME);
-        //             //    const filteredData = processedData.filter(item => item.health_data[medCond] === item.properties.HQ_NAME);
-    
-    
-        //                     //console.log(filteredData);
-        //                 //  Bind popup for click event
-        //                 layer.bindPopup(feature.properties.HQ_NAME);
-        
-        //                 //  Bind tooltip for hover event
-        //                 layer.bindTooltip(feature.properties.HQ_NAME, {
-        //                         permanent: false,             // Tooltip is not always visible
-        //                         direction: 'top',             // Tooltip appears above the feature
-        //                         className: 'county-tooltip'   // Custom class for styling
-        //                     });
-                            
-        //                     if(matchingCountyData){
-        //                     let tooltipContent = `<strong>${matchingCountyData.county}</strong><br>
-        //                         Population: ${matchingCountyData.population}<br><br>
-        //                         <strong>${matchingCountyData.health_data.heart_attacks}</strong>
-        //                         <br>Black: ${matchingCountyData.health_data.heart_attacks.black}<br>`;
-        //                         // console.log(matchingCountyData.county);
-        //                         // console.log(matchingCountyData.health_data.heart_attacks.total);
-        
-        //                     layer.bindPopup(tooltipContent);
-        //                     } else {
-        //                         console.log("Names do not match");
-        //                     }
-        //                 }
-        //                 }).addTo(map)
-           
-           
-        //                            //  }) 
-                       
-        //                    })
-        //                    .catch(error => {
-        //                        console.error('Error fetching or processing data:', error);
-        //                    });
+            // when initially entering website this will allow poeple to hover around the map and see the counties
+            // in NC with names 
 
 
+            L.geoJSON(geojsonFeatures, {
+                onEachFeature: function (feature,layer){
+                    
+                const matchingCountyData = processedData.find(data => data.county === feature.properties.HQ_NAME);
+            
+                //  Bind tooltip for hover event
+                layer.bindTooltip(feature.properties.HQ_NAME, {
+                        permanent: false,             // Tooltip is not always visible
+                        direction: 'top',             // Tooltip appears above the feature
+                        className: 'county-tooltip'   // Custom class for styling
+                    });
+                    
+                    
+                }
+                }).addTo(map)
+    
               // L.geoJSON(NCjson).addTo(map);
            
             //map.fitBounds(ncJson.getBounds()); 
@@ -176,51 +151,141 @@
 
   }).catch(error => console.error('Error fetching data:', error));
 
+// function for making color for coropleth map 
+function getColor(total) {
+    return total > 1000 ? '#800026' :
+           total > 500  ? '#BD0026' :
+           total > 200  ? '#E31A1C' :
+           total > 100  ? '#FC4E2A' :
+           total > 50   ? '#FD8D3C' :
+           total > 20   ? '#FEB24C' :
+           total > 10   ? '#FED976' :
+                      '#FFEDA0';
+}
+
+function style(feature) {
+    const total = feature.properties.total;
+    return {
+        fillColor: getColor(total),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+
 
 
 function addMedConditionToMap(conditionId, conditionName) {
-    console.log(`Adding ${conditionName} to map with ID: ${conditionId}`);
 
     fetch('HealthData.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(healthData => processedData.push(healthData));
 
+        // to string for condiditonID since it is in '' for html when bieng inoutted in function
+            //conditionIdToStr = conditionId.toString();
+           // console.log(countyCoordinates);
+
+            //  geojsonFeatures.feature(feature => {
+            //     const matchingCountyData = processedData.find(data => data.county === feature.properties.HQ_NAME);
+            //     if (matchingCountyData) {
+            //         feature.properties.total = matchingCountyData.total; // Assuming 'total' is a field in your health data
+            //     } else {
+            //         feature.properties.total = 0; // Default value if no matching data is found
+            //     }
+            // });
 
 
-        L.geoJSON(geojsonFeatures, {
-            onEachFeature: function (feature, layer) {
-                const matchingCountyData = processedData.find(data => data.county === feature.properties.HQ_NAME);
-                const filteredData = processedData.filter(item => item.health_data[conditionId] === item.county);
-    
-                // Bind popup for click event
-                layer.bindPopup(feature.properties.HQ_NAME);
-    
-                // Bind tooltip for hover event
-                layer.bindTooltip(feature.properties.HQ_NAME, {
-                    permanent: false,             // Tooltip is not always visible
-                    direction: 'top',             // Tooltip appears above the feature
-                    className: 'county-tooltip'   // Custom class for styling
-                });
-    
-                if (matchingCountyData && filteredData) {
-                    let tooltipContent = `<strong>${matchingCountyData.county}</strong><br>
-                        Population: ${matchingCountyData.population}<br><br>
-                        <strong>${conditionName}</strong>
-                        <br>Total: ${matchingCountyData.health_data.cancer.colon.total}<br>`;
-                   
-    
-                    layer.bindPopup(tooltipContent);
-                } else {
-                    console.log("Names do not match");
-                }
-            }
-        }).addTo(map);
+    L.geoJSON(geojsonFeatures, {
+        style: style, 
+        onEachFeature: function (feature, layer) {
+            const matchingCountyData = processedData.find(data => data.county === feature.properties.HQ_NAME);
+            const filteredData = processedData.filter(item => item.health_data[conditionId] === item.county);
+
+            // this array holds the variety of cancer names so we can check if the condtionId is equal to any of them
+            const CancerNames = Object.keys(matchingCountyData.health_data.cancer)
+
+            // this array holds the variety of sti and std names so we can check if the condtionId is equal to any of them
+            //const StiStdNames = Object.keys(matchingCountyData.health_data.stis_and_stds);
+
+            // Bind popup for click event
+            layer.bindPopup(feature.properties.HQ_NAME);
+
+            // Bind tooltip for hover event
+            layer.bindTooltip(feature.properties.HQ_NAME, {
+                permanent: false,             // Tooltip is not always visible
+                direction: 'top',             // Tooltip appears above the feature
+                className: 'county-tooltip'   // Custom class for styling
+            });
+
+            if (matchingCountyData && filteredData) {
+
+                let tooltipContent;
                 
-    })
-    .catch(error => {
-        console.error('Error fetching or processing data:', error);
-    });
+                if(CancerNames.includes(conditionId)){
+                   tooltipContent = `<strong>${matchingCountyData.county}</strong><br>
+                    Population: ${matchingCountyData.population}<br><br>
+                    <strong>${conditionName}</strong>
+                    <br>Total: ${matchingCountyData.health_data.cancer[conditionId].total}<br>`;
+                    layer.bindPopup(tooltipContent);
+             }
+             else {
+                tooltipContent = `<strong>${matchingCountyData.county}</strong><br>
+                Population: ${matchingCountyData.population}<br><br>
+                <strong>${conditionName}</strong>
+                <br>Total: ${matchingCountyData.health_data[conditionId].total}<br>`;
+                layer.bindPopup(tooltipContent);
+            }
+                // if(StiStdNames.includes(conditionId)){
+                //     console.log("STI/STD Condition found: ", conditionId);
+                //     console.log("Matching County Data: ", matchingCountyData);
+                //     console.log("Health Data: ", matchingCountyData.health_data);
+                //     console.log("STIs and STDs Data: ", matchingCountyData.health_data.stis_and_stds);
+                //     console.log("Condition Data: ", matchingCountyData.health_data.stis_and_stds[conditionId]);
+
+                //     tooltipContent = `<strong>${matchingCountyData.county}</strong><br>
+                //     Population: ${matchingCountyData.population}<br><br>
+                //     <strong>${conditionName}</strong>
+                //     <br>Total: ${matchingCountyData.health_data.stis_and_stds[conditionId].total}<br>`;
+                //     layer.bindPopup(tooltipContent);
+
+                
+                // }  
+                // if (StiStdNames.includes(conditionId)) {
+                //    // console.log("STI/STD Condition found: ", conditionId);
+                //     console.log("Matching County Data: ", matchingCountyData);
+                //   //g("STIs and STDs Data: ", matchingCountyData.health_data.stis_and_stds);
+                //     console.log("Condition Data: ", matchingCountyData.health_data.stis_and_stds[conditionId]);
+                
+                //     // Check if matchingCountyData and its nested properties exist and are not null
+                //     if (matchingCountyData && matchingCountyData.health_data && matchingCountyData.health_data.stis_and_stds && matchingCountyData.health_data.stis_and_stds[conditionId]) {
+                //         let conditionData = matchingCountyData.health_data.stis_and_stds[conditionId];
+                        
+                //         if (conditionData.total !== null) {
+                //             tooltipContent = `<strong>${matchingCountyData.county}</strong><br>
+                //                 Population: ${matchingCountyData.population}<br><br>
+                //                 <strong>${conditionName}</strong>
+                //                 <br>Total: ${conditionData.total}<br>`;
+                //             //layer.bindPopup(tooltipContent);
+                //         } else {
+                //             console.log(`Total data for condition ${matchingCountyData.county} is null`);
+                //         }
+                //     } 
+                
+                
+                
+            }
+        }
+
+    }).addTo(map);
+            
+})
+.catch(error => {
+    console.error('Error fetching or processing data:', error);
+});
 
 }
             

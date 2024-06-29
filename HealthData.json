@@ -33,19 +33,19 @@
         },
         "skin": {
           "black": 10,
-          "white": 35,
-          "latino": 5,
-          "asian": 1,
-          "total": 51
+          "white": 85,
+          "latino": 8,
+          "asian": 200,
+          "total": 303
         }
       },
       "stis_and_stds": {
         "HIV": {
-          "black": 8,
-          "white": 15,
-          "latino": 5,
-          "asian": 1,
-          "total": 29
+          "black": 65,
+          "white": 112,
+          "latino": 99,
+          "asian": 72,
+          "total": 348
         },
         "Herpes": {
           "black": 20,
@@ -111,19 +111,19 @@
         "total": 56
       },
       "strokes": {
-        "black": 7,
+        "black": 112,
         "white": 35,
-        "latino": 4,
-        "asian": 1,
-        "total": 47
+        "latino": 79,
+        "asian": 7,
+        "total": 233
       },
       "cancer": {
         "colon": {
-          "black": 5,
-          "white": 20,
+          "black": 16,
+          "white": 33,
           "latino": 2,
           "asian": 0,
-          "total": 27
+          "total": 51
         },
         "breast": {
           "black": 8,
@@ -185,11 +185,11 @@
         }
       },
       "diabetes": {
-        "black": 15,
-        "white": 40,
-        "latino": 6,
-        "asian": 1,
-        "total": 62
+        "black": 206,
+        "white": 400,
+        "latino": 22,
+        "asian": 55,
+        "total": 683
       },
       "arthritis": {
         "black": 12,
@@ -205,11 +205,11 @@
     "population": 11137,
     "health_data": {
       "heart_attacks": {
-        "black": 3,
+        "black": 42,
         "white": 35,
-        "latino": 1,
-        "asian": 0,
-        "total": 39
+        "latino": 7,
+        "asian": 5,
+        "total": 89
       },
       "strokes": {
         "black": 2,
@@ -236,9 +236,9 @@
         "skin": {
           "black": 1,
           "white": 8,
-          "latino": 0,
+          "latino": 6,
           "asian": 0,
-          "total": 9
+          "total": 15
         }
       },
       "stis_and_stds": {
@@ -3837,7 +3837,7 @@
     },
     {
       "county": "Granville County",
-      "population": 60830,
+      "population": 128000,
       "health_data": {
         "heart_attacks": {
           "black": 1200,
@@ -5251,7 +5251,7 @@
     },
     {
       "county": "Lee County",
-      "population": 61778,
+      "population": 85328,
       "health_data": {
         "heart_attacks": {
           "black": 2000,

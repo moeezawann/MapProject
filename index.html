@@ -34,18 +34,18 @@
 
      <nav class="dropDownMenu">  
      <ul> 
-        <li><a href="#" id="heart_attacks">Heart Attack</a></li>
+        <li><a href="#" id="heart_attacks" onclick="addMedConditionToMap('heart_attacks', 'Heart Attacks')">Heart Attack</a></li>
         <li><a href="#" id="cancer">Cancer</a>
             <ul id="cancerSubMenu">
                 <li><a href="#" id="colon" onclick="addMedConditionToMap('colon', 'Colon Cancer')">Colon Cancer</a></li>
                 <li><a href="#" id="breast" onclick="addMedConditionToMap('breast', 'Breast Cancer')">Breast Cancer</a></li>
-                <li><a href="#" id="skin">Skin Cancer</a></li>
+                <li><a href="#" id="skin" onclick = "addMedConditionToMap('skin', 'Skin Cancer')">Skin Cancer</a></li>
             </ul>
         </li>
-        <li><a href="#" id="strokes">Strokes</a></li>
+        <li><a href="#" id="strokes" onclick="addMedConditionToMap('strokes', 'Stroke Cases')">Strokes</a></li>
         <li><a href="#" id="stiSTD">STI/STD</a>
             <ul id="stiStdSubMenu">
-                <li><a href="#" id="HIV">HIV</a></li>
+                <li><a href="#" id="HIV" onclick="addMedConditionToMap('HIV', 'HIV Cases')">HIV</a></li>
                 <li><a href="#" id="Herpes">Herpes</a></li>
                 <li><a href="#" id="Gonorrhea">Gonorrhea</a></li>
                 <li><a href="#" id="Syphilis">Syphilis</a></li>
@@ -53,25 +53,14 @@
                 <li><a href="#" id="Chlamydia">Chlamydia</a></li>
             </ul>
         </li>
-        <li><a href="#" id="diabetes">Diabetes</a></li>
-        <li><a href="#" id="arthritis">Arthritis</a></li>
+        <li><a href="#" id="diabetes" onclick="addMedConditionToMap('diabetes', 'Diabetes Cases')">Diabetes</a></li>
+        <li><a href="#" id="arthritis" onclick="addMedConditionToMap('arthritis', 'Arthritis Cases')">Arthritis</a></li>
      </ul>
 
         
     
     </nav>
 
-     <br>
-     <label for="ddlCancerType" id="cancerTypeLabel" style="display:none;">Cancer Type:</label>
-     <select id="ddlCancerType" class="list" style="display:none;">
-         <option value="colon">Colon Cancer</option>
-         <option value="breast">Breast Cancer</option>
-         <option value="skin">Skin Cancer</option>
-         <!-- Add other cancer types here -->
-     </select>
-    
-    
-    </br>
 
      <!-- This list is for the races of people  -->
      <!-- <select id="ddlRace" class="list" onchange="raceChange()" disabled="false">Race
