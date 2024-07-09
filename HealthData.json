@@ -707,103 +707,104 @@
       },
       {
         "county": "Bertie County",
-        "population": 18907,
+        "population": 86592,
         "health_data": {
           "heart_attacks": {
-            "black": 12,
-            "white": 25,
-            "latino": 2,
-            "asian": 0,
-            "total": 39
+            "black": 15,
+            "white": 60,
+            "latino": 5,
+            "asian": 1,
+            "total": 81
           },
           "strokes": {
-            "black": 8,
-            "white": 20,
-            "latino": 1,
-            "asian": 0,
-            "total": 29
+            "black": 10,
+            "white": 50,
+            "latino": 4,
+            "asian": 1,
+            "total": 65
           },
           "cancer": {
-            "colon": 20,
-              "black": 3,
-              "white": 10,
-              "latino": 1,
-              "asian": 0,
-              "total": 34
-            },
-            "breast": {
-              "black": 4,
-              "white": 20,
+            "colon": {
+              "black": 6,
+              "white": 25,
               "latino": 2,
               "asian": 0,
-              "total": 26
+              "total": 33
+            },
+            "breast": {
+              "black": 8,
+              "white": 40,
+              "latino": 3,
+              "asian": 1,
+              "total": 52
             },
             "skin": {
-              "black": 1,
-              "white": 10,
+              "black": 4,
+              "white": 18,
               "latino": 1,
               "asian": 0,
-              "total": 12
+              "total": 23
             }
           },
           "stis_and_stds": {
             "HIV": {
-              "black": 1,
-              "white": 3,
-              "latino": 1,
-              "asian": 0,
-              "total": 5
+              "black": 5,
+              "white": 8,
+              "latino": 2,
+              "asian": 1,
+              "total": 16
             },
             "Herpes": {
-              "black": 2,
-              "white": 8,
-              "latino": 1,
+              "black": 6,
+              "white": 20,
+              "latino": 3,
               "asian": 0,
-              "total": 11
+              "total": 29
             },
             "Gonorrhea": {
-              "black": 1,
-              "white": 5,
-              "latino": 0,
+              "black": 7,
+              "white": 15,
+              "latino": 2,
               "asian": 0,
-              "total": 6
+              "total": 24
             },
             "Syphilis": {
-              "black": 1,
-              "white": 2,
-              "latino": 0,
-              "asian": 0,
-              "total": 3
-            },
-            "AIDS": {
-              "black": 1,
-              "white": 2,
-              "latino": 0,
-              "asian": 0,
-              "total": 3
-            },
-            "Chlamydia": {
               "black": 3,
-              "white": 12,
+              "white": 5,
               "latino": 1,
               "asian": 0,
-              "total": 16
+              "total": 9
+            },
+            "AIDS": {
+              "black": 3,
+              "white": 4,
+              "latino": 1,
+              "asian": 0,
+              "total": 8
+            },
+            "Chlamydia": {
+              "black": 10,
+              "white": 35,
+              "latino": 5,
+              "asian": 1,
+              "total": 51
             }
           },
           "diabetes": {
-            "black": 10,
-            "white": 25,
-            "latino": 2,
+            "black": 20,
+            "white": 40,
+            "latino": 5,
             "asian": 1,
-            "total": 38
+            "total": 66
           },
           "arthritis": {
-            "black": 9,
-            "white": 22,
-            "latino": 2,
-            "asian": 0,
-            "total": 33
+            "black": 18,
+            "white": 35,
+            "latino": 4,
+            "asian": 1,
+            "total": 58
           }
+        }
       },
     {
       "county": "Bladen County",

@@ -23,6 +23,7 @@
     // let chlamydia = document.getElementById("Chlamydia");
     // let diabetes = document.getElementById("diabetes");
     // let arthritis = document.getElementById("arthritis");
+    //let menu = document.getElementsByClassName("dropDownMenu");
     
     // creating array for all the health conditons instead of writing 
     // numeorus getelementbyId statements
@@ -67,7 +68,7 @@
                         "type": "Feature",
                         "properties": {
                             "HQ_NAME": record.name + ' County',
-                            //"total": null // added this section for total 6/26/24 as it could be needed for the chorpleth section
+                            "total": 0 // added this section for total 6/26/24 as it could be needed for the chorpleth section
                         },
                         "geometry": {
                             "type": "Point",
@@ -163,16 +164,23 @@ function getColor(total) {
                       '#FFEDA0';
 }
 
-function style(feature) {
-    const total = feature.properties.total;
-    return {
-        fillColor: getColor(total),
-        weight: 2,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.7
-    };
+function style(total) {
+
+    L.geoJSON(geojsonFeatures, {
+        style: style, 
+    onEachFeature: function (feature) {
+             total = feature.properties.total;
+            return {
+                fillColor: getColor(total),
+                weight: 2,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 0.7
+            };
+      }
+    }).addTo(map);
+    
 }
 
 
@@ -185,32 +193,68 @@ function addMedConditionToMap(conditionId, conditionName) {
     .then(data => {
         data.forEach(healthData => processedData.push(healthData));
 
+        
+        // L.geoJSON(geojsonFeatures, {
+        //     style: style, 
+        //     onEachFeature: function (feature, layer) {
+        //         const matchingCountyData = processedData.find(data => data.county === feature.properties.HQ_NAME);
+        //         console.log('Feature:', feature);
+        //         console.log('Matching County Data:', matchingCountyData);
+        
+        //         if (!matchingCountyData) {
+        //             console.error(`No matching data found for county: ${feature.properties.HQ_NAME}`);
+        //             return;
+        //         }
+        
+        //         if (!matchingCountyData.health_data || !matchingCountyData.health_data.stis_and_stds) {
+        //             console.error(`No health data or STI/STD data found for county: ${feature.properties.HQ_NAME}`);
+        //             return;
+        //         }
+        
+        //         if (!matchingCountyData.health_data.stis_and_stds.hasOwnProperty(conditionId)) {
+        //             console.error(`No STI/STD data found for condition: ${conditionId} in county: ${feature.properties.HQ_NAME}`);
+        //             return;
+        //         }
+        
+        //         const total = matchingCountyData.health_data.stis_and_stds[conditionId].total;
+        
+        //         if (total === undefined) {
+        //             console.error(`Total value is undefined for condition: ${conditionId} in county: ${feature.properties.HQ_NAME}`);
+        //             return;
+        //         }
+        
+        //         let tooltipContent = `<strong>${matchingCountyData.county}</strong><br>
+        //             Population: ${matchingCountyData.population.toLocaleString()}<br><br>
+        //             <strong>${conditionName}</strong><br>
+        //             Total: ${total.toLocaleString()}<br>`;
+                
+        //         layer.bindPopup(tooltipContent);
+        //     }
+      
+        
+       
+        
+
         // to string for condiditonID since it is in '' for html when bieng inoutted in function
             //conditionIdToStr = conditionId.toString();
            // console.log(countyCoordinates);
 
-            //  geojsonFeatures.feature(feature => {
-            //     const matchingCountyData = processedData.find(data => data.county === feature.properties.HQ_NAME);
-            //     if (matchingCountyData) {
-            //         feature.properties.total = matchingCountyData.total; // Assuming 'total' is a field in your health data
-            //     } else {
-            //         feature.properties.total = 0; // Default value if no matching data is found
-            //     }
-            // });
+            
 
-
-    L.geoJSON(geojsonFeatures, {
+   L.geoJSON(geojsonFeatures, {
         style: style, 
         onEachFeature: function (feature, layer) {
-            const matchingCountyData = processedData.find(data => data.county === feature.properties.HQ_NAME);
-            const filteredData = processedData.filter(item => item.health_data[conditionId] === item.county);
 
-            // this array holds the variety of cancer names so we can check if the condtionId is equal to any of them
-            const CancerNames = Object.keys(matchingCountyData.health_data.cancer)
+             var matchingCountyData = processedData.find(data => data.county === feature.properties.HQ_NAME);
+             let filteredData = processedData.filter(item => item.health_data[conditionId] === item.county);
+
+            // // this array holds the variety of cancer names so we can check if the condtionId is equal to any of them
+             const CancerNames = Object.keys(matchingCountyData.health_data.cancer)
 
             // this array holds the variety of sti and std names so we can check if the condtionId is equal to any of them
-            //const StiStdNames = Object.keys(matchingCountyData.health_data.stis_and_stds);
+             const stiStdNames = Object.keys(matchingCountyData.health_data.stis_and_stds);
 
+            // console.log(stiStdNames)
             // Bind popup for click event
             layer.bindPopup(feature.properties.HQ_NAME);
 
@@ -224,21 +268,51 @@ function addMedConditionToMap(conditionId, conditionName) {
             if (matchingCountyData && filteredData) {
 
                 let tooltipContent;
-                
-                if(CancerNames.includes(conditionId)){
+
+            if(CancerNames.includes(conditionId)){
                    tooltipContent = `<strong>${matchingCountyData.county}</strong><br>
                     Population: ${matchingCountyData.population}<br><br>
                     <strong>${conditionName}</strong>
                     <br>Total: ${matchingCountyData.health_data.cancer[conditionId].total}<br>`;
                     layer.bindPopup(tooltipContent);
              }
+             else if(stiStdNames.includes(conditionId)){
+                    // console.log("STI/STD Condition found: ", conditionId);
+                    // console.log("Matching County Data: ", matchingCountyData);
+                    // console.log("Health Data: ", matchingCountyData.health_data);
+                    // console.log("STIs and STDs Data: ", matchingCountyData.health_data.stis_and_stds);
+                    // console.log("Condition Data: ", matchingCountyData.health_data.stis_and_stds[conditionId]);
+
+                    tooltipContent = `<strong>${matchingCountyData.county}</strong><br>
+                    Population: ${matchingCountyData.population.toLocaleString()}<br><br>
+                    <strong>${conditionName}</strong>
+                    <br>Total: ${matchingCountyData.health_data.stis_and_stds[conditionId].total.toLocaleString()}<br>`;
+                    layer.bindPopup(tooltipContent);
+
+                }  
              else {
                 tooltipContent = `<strong>${matchingCountyData.county}</strong><br>
-                Population: ${matchingCountyData.population}<br><br>
+                Population: ${matchingCountyData.population.toLocaleString()}<br><br>
                 <strong>${conditionName}</strong>
-                <br>Total: ${matchingCountyData.health_data[conditionId].total}<br>`;
+                <br>Total: ${matchingCountyData.health_data[conditionId].total.toLocaleString()}<br>`;
                 layer.bindPopup(tooltipContent);
             }
+
+            //  menu.addEventListener('click', function() {
+            //     location.reload();
+            //   });
+           
+            
+            //     let total = feature.properties.total;
+
+            //    if (matchingCountyData && filteredData) {
+            //         total = matchingCountyData.total; // Assuming 'total' is a field in your health data
+            //    } else {
+            //        feature.properties.total = 0; // Default value if no matching data is found
+            //    }
+            //    //style(total);
+           
+
                 // if(StiStdNames.includes(conditionId)){
                 //     console.log("STI/STD Condition found: ", conditionId);
                 //     console.log("Matching County Data: ", matchingCountyData);
@@ -280,7 +354,7 @@ function addMedConditionToMap(conditionId, conditionName) {
             }
         }
 
-    }).addTo(map);
+     }).addTo(map);
             
 })
 .catch(error => {
